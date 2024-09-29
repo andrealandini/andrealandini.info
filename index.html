@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Figure with Caption</title>
+
+    <!-- Link to Google Fonts for EB Garamond -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* Body styling */
+        body {
+            font-family: 'EB Garamond', serif;
+            margin: 0;
+            padding: 0;
+            font-weight: 100;
+            height: 100vh; /* Full viewport height */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden; /* Hide any potential overflow */
+        }
+
+        .background-video {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%); /* Center the video */
+            min-width: 100%; /* Ensure the video covers width */
+            min-height: 120%; /* Ensure the video covers height */
+            width: auto;
+            height: auto;
+            object-fit: cover; /* Fill the screen, maintain aspect ratio */
+            z-index: -1; /* Place behind the content */
+        }
+
+        .canvas-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(255, 255, 255, 0.6); /* White with 60% transparency */
+            z-index: 1; /* Layer it above the background but below everything else */
+        }
+
+        /* Header */
+        header {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 20px;
+            background-color: rgba(255, 255, 255, 0.8);
+            border-bottom: 1px solid #ddd;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 10;
+        }
+
+        h1 {
+            color: #0E6696;
+            z-index: 10;
+        }
+
+        header a {
+            text-decoration: none;
+            color: black;
+            font-weight: bold;
+            font-size: 1.2em;
+            z-index: 10;
+        }
+
+        nav a {
+            margin: 0 10px;
+            text-decoration: none;
+            color: black;
+            z-index: 10;
+        }
+
+        /* Main content padding */
+        main {
+            padding-top: 0px; /* Remove extra padding to move the figure closer to the top */
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh; /* Full viewport height */
+        }
+
+        .content-wrapper {
+            width: 100%;
+            max-width: 100%;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            z-index: 10;
+        }
+
+        /* Adjust scaling */
+        .page-scale {
+            transform: scale(0.9); 
+            transform-origin: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10;
+        }
+
+        /* Figure container */
+        .figure-container {
+            display: block;
+            position: relative;
+            width: 80%; /* Combined width of figure and figcaption */
+            max-width: 800px;
+            margin: 0 auto; /* Center the entire block */
+            margin-top: -50px; /* Move the figure and figcaption upwards */
+        }
+
+        figure {
+            margin: 0;
+            position: relative;
+            width: 100%; /* Figure takes the full container width */
+        }
+
+        /* Figcaption styling with the original transform */
+        figcaption {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            transform: translate(20%, -30%); /* Horizontal shift by 20%, vertical by -30% */
+            background-color: red;
+            padding: 10px;
+            color: white;
+            font-weight: bold;
+            width: 150%; /* Extends figcaption beyond the figure */
+            z-index: 2;
+        }
+
+        img {
+            display: block;
+            width: 100%;
+            height: auto;
+            max-width: 100%;
+            z-index: 10;
+        }
+
+        footer {
+            padding: 10px;
+            background-color: rgba(241, 241, 241, 0.8);
+            text-align: center;
+        }
+
+        /* Responsive for small screens */
+        @media (max-width: 600px) {
+            .figure-container {
+                width: 100%; /* Ensure the figure-container uses full width */
+                padding: 0 10px; /* Add padding to ensure margins */
+            }
+
+            figcaption {
+                width: 90%; /* Reduce figcaption width to fit within the screen */
+                transform: translate(10%, -30%); /* Keep a slight shift */
+                max-width: none; /* Prevent max-width constraints */
+            }
+
+            figure {
+                width: 100%; /* Ensure figure takes full screen width */
+            }
+
+            img {
+                width: 100%; /* Ensure image scales properly */
+            }
+        }
+
+        /* Mid-sized screens */
+        @media (min-width: 601px) and (max-width: 1200px) {
+            figcaption {
+                width: 110%; /* Exceed figure width, expanding to the right */
+                max-width: 1200px; /* Cap figcaption for medium screens */
+            }
+
+            figure {
+                width: 80%; 
+                max-width: 800px; /* Cap figure size */
+            }
+        }
+
+        /* Large screens with figcaption exceeding figure to the right */
+        @media (min-width: 1200px) {
+            figcaption {
+                width: 120%; /* Expand figcaption even more */
+                max-width: 1500px; /* Allow more space for figcaption */
+            }
+
+            figure {
+                width: 80%; /* Keep figure size fixed */
+                max-width: 800px;
+            }
+        }
+
+        /* Extra-wide screens (wider than 1600px) */
+        @media (min-width: 1600px) {
+            figcaption {
+                width: 130%; /* Extend figcaption to the right for large screens */
+                max-width: 1600px;
+            }
+
+            figure {
+                width: 75%; /* Shrink figure a bit to give figcaption more space */
+                max-width: 750px;
+            }
+        }
+
+        /* Ultra-wide screens */
+        @media (min-width: 1920px) {
+            figcaption {
+                width: 140%; /* Figcaption fully expands to the right */
+                max-width: 1800px; /* Maximize figcaption for ultra-wide */
+                padding: 20px; /* Increase padding for emphasis */
+            }
+            figure {
+                width: 70%; /* Further reduce figure size */
+                max-width: 700px; /* Cap figure size */
+            }
+        }
+    </style>
+</head>
+<body>
+	<!-- <video autoplay muted loop playsinline class="background-video" id="background-video"> -->
+	<video autoplay muted loop playsinline preload="auto" class="background-video" id="background-video">
+        <source src="acquetta.mov" type="video/mp4">
+        Your browser does not support HTML5 video.
+    </video>
+
+    <header>
+        <a href="/" style="text-decoration: none; color: #0E6696; font-weight: normal;">Andrea Landini</a>
+
+        <nav>
+            <a href="page1.html" style="color: #0E6696; font-weight: normal;">About Me</a>
+            <a href="/projects/index.html" style="color: #0E6696; font-weight: normal;">Projects</a>
+            <a href="/resume/index.html" style="color: #0E6696; font-weight: normal;">Resume</a>
+            <a href="/contact/index.html" style="color: #0E6696; font-weight: normal;">Contact Info</a>
+        </nav>
+    </header>
+
+    <main class="content-wrapper">
+        <div class="page-scale">
+            <div class="figure-container">
+                <figure>
+                    <img src="i.jpg" alt="Placeholder Image" class="active">
+                    <figcaption>
+                        <div class="image-card sqs-dynamic-text-container">
+                            <div class="image-title-wrapper">
+                                <div class="image-title sqs-dynamic-text" style="font-size: clamp(1.5rem, 2vw, 3rem);">
+                                    <h3 style="white-space: pre-wrap; text-align: left; font-size: clamp(1.5rem, 2vw, 3rem);">Project not yet ready</h3>
+                                </div>
+                            </div>
+                            <div class="image-subtitle-wrapper">
+                                <div class="image-subtitle sqs-dynamic-text" style="font-size: max(0.75rem, 74.5%);">
+                                    <p style="white-space: pre-wrap; text-align: left; font-size: clamp(1rem, 2vw, 1.5rem);">Diocane. Research Interests: Informational Frictions, Optimal Fiscal and Monetary Policy, Behavioral Macroeconomics.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </figcaption>
+                </figure>
+            </div>
+        </div>
+    </main>
+
+     <div class="canvas-overlay"></div> 
+
+    <script>
+        const video = document.getElementById('background-video');
+
+        // Ensure the video always plays
+        function playVideo() {
+            if (video.paused) {
+                video.play().catch(error => {
+                    console.error('Error playing the video:', error);
+                });
+            }
+        }
+
+        // Play video on load and when window gains focus
+        video.addEventListener('canplay', playVideo);
+        window.addEventListener('focus', playVideo);
+
+        // Adjust video zoom on window resize
+        function resizeVideo() {
+            const windowAspectRatio = window.innerWidth / window.innerHeight;
+            const videoAspectRatio = video.videoWidth / video.videoHeight;
+
+            if (windowAspectRatio < videoAspectRatio) {
+                video.style.width = '100vw';
+                video.style.height = 'auto';
+            } else {
+                video.style.width = 'auto';
+                video.style.height = '100vh';
+            }
+        }
+	window.addEventListener('resize', resizeVideo);
+	window.addEventListener('load', resizeVideo);
+
+	video.play().catch(error => {
+            console.error('Error attempting to play video:', error);
+         });
+
+    </script>
+</body>
+</html>
+
