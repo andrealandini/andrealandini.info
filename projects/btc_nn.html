@@ -1,0 +1,333 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="assets/images/favicon.png" type="assets/images/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrea Landini - Carry Trade</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+
+    <!-- Link to external CSS for header, burger menu, and video background -->
+    <link rel="stylesheet" href="../styles.css">
+
+    <!-- Link to Google Fonts for EB Garamond -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'EB Garamond', serif;
+            margin: 0;
+            padding: 0;
+            font-weight: 100;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        h1, h2, h3 {
+            color: #0E6696;
+        }
+
+        /* Main content styling */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 120px auto 0;
+            padding: 20px;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9;
+            position: relative;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            border-bottom: 2px solid #0E6696;
+            padding-bottom: 5px;
+        }
+
+        .section p {
+            margin: 5px 0;
+        }
+
+        .job-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .job-entry p {
+            margin: 0;
+        }
+
+        /* Download button styling */
+        .button-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: transparent;
+            border: 3px solid #0E6696;
+            color: #0E6696;
+            font-family: 'EB Garamond', serif;
+            font-weight: 500;
+            font-size: 1.5em;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #0E6696;
+            color: white;
+        }
+        ul li {
+            margin-bottom: 0px; /* Adjust the value to the amount of space you need */
+        }
+        ul li.listapagina {
+            margin-bottom: 5px;
+        }
+        ol li {
+            margin-bottom: 10px; /* Adjust the spacing as needed */
+        }
+	    p {
+            text-align: justify;
+        }
+
+        /* TOC Styling */
+        .toc {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #0E6696;
+            /*background-color: #f9f9f9; */
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            color: #0E6696;
+            font-weight: 500;
+            font-size: 1.5em;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+            color: #0E6696;
+        }
+        @media (max-width: 600px) {
+        div {
+            font-size: 14px; /* Adjust the size for small screens */
+            }
+        }
+     </style>
+</head>
+
+<body>
+    <!-- Background video -->
+    <video autoplay muted loop playsinline class="background-video">
+        <source src="../assets/videos/water.mp4" type="video/mp4">
+        Your browser does not support the video.
+    </video>
+
+    <div class="canvas-overlay"></div>
+
+    <header>
+        <div class="header-title">
+            <div class="header-title-text">
+                <a href="../index.html">Andrea Landini</a>
+            </div>
+        </div>
+
+        <nav class="header-nav">
+            <ul class="header-nav-list">
+                <li class="header-nav-item"><a href="../index.html">Home</a></li>
+                <li class="header-nav-item"><a href="../about.html">About Me</a></li>
+                <li class="header-nav-item"><a href="../resume.html">Resume</a></li>
+                <li class="header-nav-item"><a href="../projectmenu.html">Projects</a></li>
+                <li class="header-nav-item"><a href="../contact.html">Contact Information</a></li>
+            </ul>
+        </nav>
+
+        <!-- Burger Menu Icon for Mobile -->
+        <div class="burger-box">
+            <div class="top-bun"></div>
+            <div class="patty"></div>
+            <div class="bottom-bun"></div>
+        </div>
+    </header>
+
+    <div class="fullscreen-menu">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+	<li><a href="../about.html">About Me</a></li>
+	<li><a href="../resume.html">Resume</a></li>
+            <li><a href="../projectmenu.html">Projects</a></li>
+            <li><a href="../contact.html">Contact Information</a></li>
+        </ul>
+    </div>
+
+    <main class="content-wrapper">
+        <!-- <div class="button-container" style="display: flex; justify-content: center; gap: 40px;">
+             <a href="../assets/pdf/gold_price_modeling.pdf" class="download-btn" download="gold_price_modeling.pdf">Download paper (PDF)</a> 
+             <a href="https://gold-price-forecast.app" class="download-btn">Forecast Tool (WebPage)</a>
+     </div> --> 
+ 	<div class="button-container" style="display: flex; justify-content: center; gap: 40px;">
+	    <a href="https://github.com/andrealandini/neural-network-ohlc-btc" class="download-btn" >Go to Repository</a>
+	</div>
+         <h1>Neural Network on Bitcoin OHLC second data</h1>
+ 
+         <div class="toc">
+             <h2>Table of Contents</h2>
+             <ul>
+                 <li><a href="#nn-integration">Nueral Network Integration</a></li>
+                 <li><a href="#jump-diffusion-process">Jump Diffusion Process</a></li>
+                 <li><a href="#conclusion">Conclusion</a></li>
+             </ul>
+         </div>
+ 
+    <h2 id="nn-integration">Neural Network Integration</h2>
+
+    <p>
+        To effectively model complex financial dynamics, a neural network can be designed to process input data derived from the Jump-Diffusion Stochastic Differential Equation (SDE). This neural network leverages features extracted from the SDE (such as drift, volatility, jump intensity, and jump sizes) to predict and refine asset price movements. By feeding the network with real-time OHLC (Open, High, Low, Close) data and initial parameter estimates, the model dynamically adjusts to market conditions. The network continuously learns to optimize its predictions by minimizing the discrepancy between simulated price paths and actual market data, offering an adaptive solution for forecasting and risk analysis in volatile markets.
+    </p>
+
+
+        
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+            <figure style="text-align: center; width: 100%; max-width: 640px; margin: 0;">
+                <video autoplay muted loop playsinline style="width: 100%; height: auto; border-radius: 10px;">
+                    <source src="../assets/videos/neural_network.mp4" type="video/quicktime">
+                    Your browser does not support the video tag.
+                </video>
+                <figcaption style="margin-top: 10px; font-style: italic; color: #555;">
+                    Figure 1: Neural network structure visualisation.
+                </figcaption>
+            </figure>
+        </div>
+
+    <h2 id="jump-diffusion-process">Jump Diffusion Process with Dynamic Scaling</h1>
+
+        <p>The stochastic differential equation (SDE) for the asset price \( S_t \) is given by:</p>
+        
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; overflow-x: auto; width: 100%; max-width: 100%;">
+                <div style="max-width: 100%; width: 100%; padding: 0 10px;">
+                \[
+                dS_t = \mu S_t \, dt + \sigma S_t \, D_t + S_{t^-} (J - 1) \, dN_t
+                \]
+            </div>
+            </div>
+        
+        <p>
+            In the stochastic differential equation (SDE) \( dS_t = \mu S_t \, dt + \sigma S_t \, D_t + S_{t^-} (J - 1) \, dN_t \), each term models a distinct component of the asset price dynamics. The term \( \mu S_t \, dt \) represents the deterministic drift, where \( \mu \) is the constant drift rate reflecting the expected return of the asset over time. The second term, \( \sigma S_t \, D_t \), captures the continuous stochastic volatility, with \( \sigma \) as the baseline volatility and \( D_t \) as the dynamic scaling factor that adjusts volatility during periods of market instability, particularly after jumps. The final term, \( S_{t^-} (J - 1) \, dN_t \), models sudden and discrete jumps in the asset price. Here, \( N_t \) is a Poisson process with intensity \( \lambda \) that determines the random occurrence of jumps, and \( J \) is a random variable representing the proportional size of these jumps. The notation \( S_{t^-} \) denotes the asset price immediately before a jump occurs, ensuring that the jump is applied instantaneously. Together, these components allow the model to capture both the continuous fluctuations and abrupt changes in asset prices, providing a comprehensive framework for modeling financial markets with jump risk.
+        </p>
+
+        <h3>Dynamic Scaling Factor</h2>
+
+
+
+            <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">\[ D_t = \left(1 + (\theta - 1) I_t\right) dW_t \]</div>
+        <p>where \( \theta \) is the volatility scaling factor applied during jumps, and \( I_t \) is an indicator function:</p>
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; overflow-x: auto; width: 100%; max-width: 100%;">
+            <div style="max-width: 100%; width: 100%; padding: 0 10px;">
+            \[
+            I_t =
+            \begin{cases}
+                1, & \text{if a jump occurs and Close/Open} \neq 1 \\
+                0, & \text{if Close/Open} = 1
+            \end{cases}
+            \]
+        </div>
+        </div>
+        <p>When a jump occurs, \( I_t = 1 \), and the volatility is scaled by \( \theta \). This scaled volatility persists until the price stabilizes, i.e., when the ratio \( \text{Close/Open} = 1 \), after which \( D_t \) reverts to normal Brownian motion.</p>
+
+    <h3>Application of Itô's Lemma</h2>
+        <p>Applying Itô's Lemma to \( X_t = \ln S_t \):</p>
+
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; overflow-x: auto; width: 100%; max-width: 100%;">
+            <div style="max-width: 100%; width: 100%; padding: 0 10px;">
+            \[
+            \begin{align*}
+            dX_t &= \left(\mu - \frac{1}{2} \sigma^2 (1 + (\theta - 1) I_t)^2\right) dt + \sigma (1 + (\theta - 1) I_t) dW_t + \ln(J) \, dN_t\\[2mm]
+            X_t &= \ln S_0 + \left(\mu - \frac{1}{2} \sigma^2 - \lambda \kappa\right)t + \sigma \int_0^t (1 + (\theta - 1) I_s) \, dW_s + \sum_{i=1}^{N_t} \ln(J_i)
+            \end{align*}    
+            \]
+        </div>
+        </div>
+
+    <h3>Correction</h3>
+        <p>It is important to accurately represent the time interval over which the dynamic scaling factor \( D_t \) influences the diffusion component of the asset price. Originally, the integral of the diffusion term was taken from 0 to \( t \), which does not correctly capture the behavior of \( D_t \). Since \( D_t \) should only apply the scaling factor \( \theta \) from the moment a jump occurs until the market stabilizes (i.e., when the ratio of Close/Open returns to 1), the limits of integration must be adjusted. Let \( \tau \) denote the time at which a jump occurs and \( t^* \) denote the first time after the jump when Close/Open equals 1. The corrected form of the diffusion component is expressed as:</p>
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px; overflow-x: auto; width: 100%; max-width: 100%;">
+            <div style="max-width: 100%; width: 100%; padding: 0 10px;">
+            \[ \sigma \int_{\tau}^{t^*} \left(1 + (\theta - 1) I_s\right) \, dW_s \]
+        </div>
+        </div>
+        <p>This adjustment ensures that the volatility scaling is only active during the relevant period of market instability, starting from the jump and ending when the asset price stabilizes. This refined modeling more accurately reflects the transient impact of jumps on market volatility.</p>
+
+
+
+        <h2 id="conclusion">Conclusion</h2>
+        <p>
+            The neural network model, trained on features derived from the Jump-Diffusion Stochastic Differential Equation (SDE), demonstrates strong performance as evidenced by the rapid decline in training, validation, and evaluation losses. This consistent improvement highlights the model's ability to accurately capture and predict complex asset price dynamics. Ongoing refinements and further testing will be conducted to ensure robustness and scalability. The comprehensive results and analysis will be published in future updates, providing deeper insights into the model's effectiveness in financial forecasting.
+        </p>
+
+
+        <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+            <figure style="text-align: center; width: 100%; max-width: 640px; margin: 0;">
+                <video autoplay muted loop playsinline style="width: 100%; height: auto; border-radius: 10px;">
+                    <source src="../assets/videos/loss.mp4" type="video/quicktime">
+                    Your browser does not support the video tag.
+                </video>
+                <figcaption style="margin-top: 10px; font-style: italic; color: #555;">
+                    Figure 2: Neural network training loss visualization.
+                </figcaption>
+            </figure>
+        </div>
+
+
+ <h2 id="references">References</h2>
+ <p>
+    Omole, O., & Enke, D. (2024). Deep learning for Bitcoin price direction prediction: models and trading strategies empirically compared. 
+    <em>Financial Innovation</em>. Retrieved from 
+    <a href="https://jfin-swufe.springeropen.com/articles/10.1186/s40854-024-00643-1" target="_blank">
+        https://jfin-swufe.springeropen.com/articles/10.1186/s40854-024-00643-1
+    </a>
+</p>
+
+<p>
+    Qiang, Z., & Shen, J. (2021). Bitcoin High-Frequency Trend Prediction with Convolutional and Recurrent Neural Networks. 
+    <em>Stanford University Project Report</em>. Retrieved from 
+    <a href="https://cs230.stanford.edu/projects_winter_2021/reports/70308950.pdf" target="_blank">
+        https://cs230.stanford.edu/projects_winter_2021/reports/70308950.pdf
+    </a>
+</p>
+
+ 
+     </main>
+ 
+    <script src="../script.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+</html>
+
