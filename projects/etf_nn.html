@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link rel="icon" href="assets/images/favicon.png" type="assets/images/">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Andrea Landini - Carry Trade</title>
+    <link rel="icon" href="assets/images/favicon.png" type="image/png">
+
+    <!-- Link to external CSS for header, burger menu, and video background -->
+    <link rel="stylesheet" href="../styles.css">
+
+    <!-- Link to Google Fonts for EB Garamond -->
+    <link href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;700&display=swap" rel="stylesheet">
+
+    <style>
+        body {
+            font-family: 'EB Garamond', serif;
+            margin: 0;
+            padding: 0;
+            font-weight: 100;
+            overflow-y: auto;
+            height: 100%;
+        }
+
+        h1, h2, h3 {
+            color: #0E6696;
+        }
+
+        /* Main content styling */
+        .content-wrapper {
+            max-width: 1200px;
+            margin: 120px auto 0;
+            padding: 20px;
+            text-align: left;
+            background-color: rgba(255, 255, 255, 0.8);
+            z-index: 9;
+            position: relative;
+        }
+
+        .section {
+            margin-bottom: 20px;
+        }
+
+        .section h2 {
+            border-bottom: 2px solid #0E6696;
+            padding-bottom: 5px;
+        }
+
+        .section p {
+            margin: 5px 0;
+        }
+
+        .job-entry {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 10px;
+        }
+
+        .job-entry p {
+            margin: 0;
+        }
+
+        /* Download button styling */
+        .button-container {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .download-btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background-color: transparent;
+            border: 3px solid #0E6696;
+            color: #0E6696;
+            font-family: 'EB Garamond', serif;
+            font-weight: 500;
+            font-size: 1.5em;
+            text-decoration: none;
+            text-align: center;
+            border-radius: 5px;
+            transition: background-color 0.3s ease, color 0.3s ease;
+        }
+
+        .download-btn:hover {
+            background-color: #0E6696;
+            color: white;
+        }
+        ul li {
+            margin-bottom: 0px; /* Adjust the value to the amount of space you need */
+        }
+        ul li.listapagina {
+            margin-bottom: 5px;
+        }
+        ol li {
+            margin-bottom: 10px; /* Adjust the spacing as needed */
+        }
+	    p {
+            text-align: justify;
+        }
+
+        /* TOC Styling */
+        .toc {
+            margin-bottom: 30px;
+            padding: 15px;
+            border-left: 4px solid #0E6696;
+            /*background-color: #f9f9f9; */
+        }
+
+        .toc h2 {
+            margin-top: 0;
+            color: #0E6696;
+            font-weight: 500;
+            font-size: 1.5em;
+        }
+
+        .toc ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+
+        .toc li {
+            margin: 8px 0;
+        }
+
+        .toc a {
+            color: #333;
+            text-decoration: none;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .toc a:hover {
+            text-decoration: underline;
+            color: #0E6696;
+        }
+        @media (max-width: 600px) {
+        div {
+            font-size: 14px; /* Adjust the size for small screens */
+            }
+        }
+     </style>
+</head>
+
+<body>
+    <!-- Background video -->
+    <video autoplay muted loop playsinline class="background-video">
+        <source src="../assets/videos/water.mp4" type="video/mp4">
+        Your browser does not support the video.
+    </video>
+
+    <div class="canvas-overlay"></div>
+
+    <header>
+        <div class="header-title">
+            <div class="header-title-text">
+                <a href="../index.html">Andrea Landini</a>
+            </div>
+        </div>
+
+        <nav class="header-nav">
+            <ul class="header-nav-list">
+                <li class="header-nav-item"><a href="../index.html">Home</a></li>
+                <li class="header-nav-item"><a href="../about.html">About Me</a></li>
+                <li class="header-nav-item"><a href="../resume.html">Resume</a></li>
+                <li class="header-nav-item"><a href="../projectmenu.html">Projects</a></li>
+                <li class="header-nav-item"><a href="../contact.html">Contact Information</a></li>
+            </ul>
+        </nav>
+
+        <!-- Burger Menu Icon for Mobile -->
+        <div class="burger-box">
+            <div class="top-bun"></div>
+            <div class="patty"></div>
+            <div class="bottom-bun"></div>
+        </div>
+    </header>
+
+    <div class="fullscreen-menu">
+        <ul>
+            <li><a href="../index.html">Home</a></li>
+	<li><a href="../about.html">About Me</a></li>
+	<li><a href="../resume.html">Resume</a></li>
+            <li><a href="../projectmenu.html">Projects</a></li>
+            <li><a href="../contact.html">Contact Information</a></li>
+        </ul>
+    </div>
+
+    <main class="content-wrapper">
+        <!-- <div class="button-container" style="display: flex; justify-content: center; gap: 40px;">
+             <a href="../assets/pdf/gold_price_modeling.pdf" class="download-btn" download="gold_price_modeling.pdf">Download paper (PDF)</a> 
+             <a href="https://gold-price-forecast.app" class="download-btn">Forecast Tool (WebPage)</a>
+     </div> --> 
+
+    <h1>Neural Network for ETF Analysis</h1>
+
+    <div class="toc">
+        <h2>Table of Contents</h2>
+        <ul>
+            <li><a href="#data-preprocessing">Data Preprocessing</a></li>
+            <li><a href="#first-neural-network">First Neural Network: Top Holdings Scoring</a></li>
+            <li><a href="#second-neural-network">Second Neural Network: ETF Selection</a></li>
+            <li><a href="#conclusion">Conclusion</a></li>
+        </ul>
+    </div>
+
+    <h2 id="data-preprocessing">Data Preprocessing</h2>
+    <p>
+        ETF data was sourced from <a href="https://www.justetf.com" target="_blank">justetf.com</a>, focusing on the top holdings of each fund. Key metrics such as Basic EPS, EBITDA, EBIT, Gross Profit, Revenue, Net Income, and Operating Margin were collected for each holding. The challenge lay in harmonizing these features across different funds while handling missing values (NA). Data imputation and normalization were applied to ensure comparability across all holdings.
+    </p>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <figure style="text-align: center; width: 100%; max-width: 640px; margin: 0;">
+            <img src="../assets/images/nn-plot.png" alt="Data Preprocessing Overview" style="width: 100%; height: auto; border-radius: 10px;">
+            <figcaption style="margin-top: 10px; font-style: italic; color: #555;">
+                Figure 1: First Neural Network structure.
+            </figcaption>
+        </figure>
+    </div>
+
+    <h2 id="first-neural-network">First Neural Network: Top Holdings Scoring</h2>
+    <p>
+        The first neural network processes input features derived from the top holdings of ETFs. Each holding is scored based on its financial metrics, providing an aggregated score for each ETF. The model was trained using a combination of mean squared error and regularization to ensure robust performance on diverse ETFs.
+    </p>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <figure style="text-align: center; width: 100%; max-width: 640px; margin: 0;">
+            <img src="../assets/images/loss_plot.png" alt="Neural Network for Top Holdings Scoring" style="width: 100%; height: auto; border-radius: 10px;">
+            <figcaption style="margin-top: 10px; font-style: italic; color: #555;">
+                Figure 2: Training and Validation on first Neural Network.
+            </figcaption>
+        </figure>
+    </div>
+
+    <h2 id="second-neural-network">Second Neural Network: ETF Selection</h2>
+    <p>
+        The second neural network takes the output scores from the first network and additional fund-level features as inputs to determine the optimal ETF selection. By minimizing a custom loss function tailored to portfolio optimization, the model identifies ETFs best aligned with specific investment goals.
+    </p>
+    <div style="display: flex; justify-content: center; align-items: center; margin-top: 20px;">
+        <figure style="text-align: center; width: 100%; max-width: 640px; margin: 0;">
+            <img src="../assets/images/results.png" alt="Neural Network for ETF Selection" style="width: 100%; height: auto; border-radius: 10px;">
+            <figcaption style="margin-top: 10px; font-style: italic; color: #555;">
+                Figure 3: Neural network architecture for ETF selection.
+            </figcaption>
+        </figure>
+    </div>
+
+    <h2 id="conclusion">Conclusion</h2>
+    <p>
+        The dual-neural-network framework effectively addresses the complexities of ETF analysis by integrating top holdings scoring with fund-level selection. Future work will focus on enhancing the interpretability of the models and incorporating real-time market data to refine predictions. The repository provides comprehensive details and scripts for replication and further development.
+    </p>
+
+ 
+     </main>
+ 
+    <script src="../script.js"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+</body>
+</html>
+
