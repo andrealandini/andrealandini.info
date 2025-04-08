@@ -165,7 +165,9 @@
 <body>
     
 	<!-- <video autoplay muted loop playsinline class="background-video" id="background-video"> -->
-    <video autoplay muted loop playsinline class="background-video">
+    <!--<video autoplay muted loop playsinline class="background-video"> -->
+
+    <video autoplay muted loop playsinline preload="auto" id="background-video" class="background-video">
         <source src="assets/videos/water.mp4" type="video/mp4">
         Your browser does not support the video.
     </video>
@@ -174,38 +176,50 @@
 
     <header>
         <div class="header-title">
-            <div class="header-title-text">
-                <a href="index.html">Andrea Landini</a>
-            </div>
+          <div class="header-title-text">
+            <a href="index.html">Andrea Landini</a>
+          </div>
         </div>
-
-        <nav class="header-nav">
-            <ul class="header-nav-list">
-                <li class="header-nav-item"><a href="index.html">Home</a></li>
-                <li class="header-nav-item"><a href="about.html">About Me</a></li>
-                <li class="header-nav-item"><a href="resume.html">Resume</a></li>
-                <li class="header-nav-item"><a href="projectmenu.html">Projects</a></li>
-                <li class="header-nav-item"><a href="contact.html">Contact Information</a></li>
-            </ul>
+      
+        <!-- Language Switch FIRST -->
+         
+        <div class="language-switch">
+          <button id="lang-en" class="active">EN</button> |
+          <button id="lang-de">DE</button>
+        </div>
+      
+        <!-- Burger Menu SECOND -->
+        <input type="checkbox" id="menuToggle" style="display: none;">
+        <label class="menu-btn" for="menuToggle">
+          <span></span>
+          <span></span>
+          <span></span>
+        </label>
+      
+        <!-- Fullscreen Mobile Menu -->
+        <nav class="menu">
+        <div class="menu-title">Andrea Landini</div> 
+          <a href="index.html" data-translate="home">Home</a>
+          <a href="about.html" data-translate="about">About Me</a>
+          <a href="resume.html" data-translate="resume">Resume</a>
+          <a href="projectmenu.html" data-translate="projects">Projects</a>
+          <a href="contact.html" data-translate="contact">Contact Information</a>
         </nav>
+      
+        <!-- Desktop Navigation -->
+        <nav class="header-nav">
+          <ul class="header-nav-list">
+            <li class="header-nav-item"><a href="index.html" data-translate="home">Home</a></li>
+            <li class="header-nav-item"><a href="about.html" data-translate="about">About Me</a></li>
+            <li class="header-nav-item"><a href="resume.html" data-translate="resume">Resume</a></li>
+            <li class="header-nav-item"><a href="projectmenu.html" data-translate="projects">Projects</a></li>
+            <li class="header-nav-item"><a href="contact.html" data-translate="contact">Contact Information</a></li>
+          </ul>
+        </nav>
+      </header>
+      
+          
 
-        <!-- Burger Menu Icon for Mobile -->
-        <div class="burger-box">
-            <div class="top-bun"></div>
-            <div class="patty"></div>
-            <div class="bottom-bun"></div>
-        </div>
-    </header>
-
-    <div class="fullscreen-menu">
-        <ul>
-            <li><a href="index.html">Home</a></li>
-            <li><a href="about.html">About Me</a></li>
-            <li><a href="resume.html">Resume</a></li>
-            <li><a href="projectmenu.html">Projects</a></li>
-            <li><a href="contact.html">Contact Information</a></li>
-        </ul>
-    </div>
 
 
 
@@ -219,12 +233,12 @@
                         <div class="image-card sqs-dynamic-text-container">
                             <div class="image-title-wrapper">
                                 <div class="image-title sqs-dynamic-text" style="font-size: clamp(1.5rem, 2vw, 3rem);">
-                                    <h3 style="white-space: pre-wrap; text-align: left; font-size: clamp(1.5rem, 2vw, 3rem);">Bocconi Graduate, M.Sc. Student at Universität Liechtenstein</h3>
+                                    <h3 style="white-space: pre-wrap; text-align: left; font-size: clamp(1.5rem, 2vw, 3rem);" data-translate="caption_titolo">Bocconi Graduate, M.Sc. Student at Universität Liechtenstein</h3>
                                 </div>
                             </div>
                             <div class="image-subtitle-wrapper">
                                 <div class="image-subtitle sqs-dynamic-text" style="font-size: max(0.75rem, 74.5%);">
-                                    <p style="white-space: pre-wrap; text-align: left; font-size: clamp(1rem, 2vw, 1.5rem);">Research Interests: Quantitative Finance and Computational Modeling, focusing on Stochastic Volatility Models and Monte Carlo Simulations; developing and testing models using Python and C++.
+                                    <p style="white-space: pre-wrap; text-align: left; font-size: clamp(1rem, 2vw, 1.5rem);" data-translate="caption_descrizione">Research Interests: Quantitative Finance and Computational Modeling, focusing on Stochastic Volatility Models and Monte Carlo Simulations; developing and testing models using Python and C++.
                                     </p>
                                 </div>
                             </div>
@@ -238,7 +252,7 @@
     
     
     <script src="script.js"></script>
-    <script>
+   <!-- <script>
         const video = document.getElementById('background-video');
 
         // Ensure the video always plays
@@ -274,7 +288,7 @@
             console.error('Error attempting to play video:', error);
          });
 
-    </script>
+    </script> -->
 </body>
 </html>
 
