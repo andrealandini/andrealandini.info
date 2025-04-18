@@ -253,22 +253,23 @@
 
 	<div id="menu-list">
 
-	<div class="menu-item" data-date="2025-01-21" data-popular="false" data-classification="nn">
 
-            <a href="projects/etf_nn.html" class="paper-link">
-                <h2>Neural Network Framework for ETF Selection and Analysis</h2>
-        
-                <div class="job-entry">
-                    <p style="display: block; text-align: left;">Published on: 21 January 2025</p>
-                    <p style="display: block; text-align: left;"><strong>Author: Andrea Landini</strong></p>
-                  </div>
-                  
-                <p>
-                    This study explores a dual-neural-network system for ETF analysis, integrating top holdings scoring and fund-level selection. Leveraging financial metrics such as EPS, EBITDA, and Net Income, the framework ensures comparability across ETFs and optimizes portfolio selection. The results demonstrate robust performance in aligning ETF choices with investment goals.
-                </p>
+        <div class="menu-item" data-date="2025-05-04" data-popular="false" data-classification="economics">
+
+
+            <a href="projects/basistrade.html" class="paper-link">
+                <h2>Basis Trade</h2>
+     
+
+            <div class="job-entry">
+                <p style="display: block; text-align: left;">Published on: 4th May 2025</p>
+                <p style="display: block; text-align: left;"><strong>Author: Gianni Parisi & Andrea Landini</strong></p>
+              </div>
+                <p>[abstract]</p>
             </a>
         </div>
-        
+
+
 	<div class="menu-item" data-date="2025-01-15" data-popular="false" data-classification="nn">
 
             <a href="projects/btc_nn.html" class="paper-link">
@@ -284,7 +285,21 @@
         </div>
 
 
+	<div class="menu-item" data-date="2025-01-21" data-popular="false" data-classification="nn">
 
+            <a href="projects/etf_nn.html" class="paper-link">
+                <h2>Neural Network Framework for ETF Selection and Analysis</h2>
+        
+                <div class="job-entry">
+                    <p style="display: block; text-align: left;">Published on: 21 January 2025</p>
+                    <p style="display: block; text-align: left;"><strong>Author: Andrea Landini</strong></p>
+                  </div>
+                  
+                <p>
+                    This study explores a dual-neural-network system for ETF analysis, integrating top holdings scoring and fund-level selection. Leveraging financial metrics such as EPS, EBITDA, and Net Income, the framework ensures comparability across ETFs and optimizes portfolio selection. The results demonstrate robust performance in aligning ETF choices with investment goals.
+                </p>
+            </a>
+        </div>
 	    
 	<div class="menu-item" data-date="2024-11-10" data-popular="false" data-classification="economics">
 
@@ -343,9 +358,11 @@
 <script src="script.js"></script>
 
 <!-- Step 2: Your page-specific sorting + topics script -->
+
 <script>
 document.addEventListener('DOMContentLoaded', function() {
     const menuItems = Array.from(document.querySelectorAll('.menu-item'));
+    let currentItems = [...menuItems]; // <-- ADD THIS
     const container = document.getElementById('menu-list');
 
     const latestButton = document.getElementById('sort-latest');
@@ -368,8 +385,17 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     }
 
+    function updateDisplay() {
+        container.innerHTML = '';
+        currentItems.forEach(item => container.appendChild(item));
+        topicsList.style.display = 'none';
+        setTopicsButtonText('topics'); // Reset to "Topics" after sort
+        document.querySelector('.content-wrapper').classList.remove('expanded');
+    }
+
     function sortByDate(descending = true) {
-        menuItems.sort((a, b) => {
+        currentItems = [...menuItems]; // Reset all items
+        currentItems.sort((a, b) => {
             const dateA = a.getAttribute('data-date');
             const dateB = b.getAttribute('data-date');
 
@@ -384,20 +410,13 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 
     function sortByPopular() {
-        menuItems.sort((a, b) => {
-            const popA = a.getAttribute('data-popular') === 'true' ? 0 : 1;
-            const popB = b.getAttribute('data-popular') === 'true' ? 0 : 1;
-            return popA - popB;
+        currentItems = menuItems.filter(item => item.getAttribute('data-popular') === 'true');
+        currentItems.sort((a, b) => {
+            const dateA = new Date(a.getAttribute('data-date'));
+            const dateB = new Date(b.getAttribute('data-date'));
+            return dateB - dateA; // Latest first
         });
         updateDisplay();
-    }
-
-    function updateDisplay() {
-        container.innerHTML = '';
-        menuItems.forEach(item => container.appendChild(item));
-        topicsList.style.display = 'none';
-        setTopicsButtonText('topics'); // Reset to "Topics" after sort
-	document.querySelector('.content-wrapper').classList.remove('expanded');
     }
 
     function showTopics() {
@@ -409,7 +428,6 @@ document.addEventListener('DOMContentLoaded', function() {
             if (topic) {
                 classifications.add(topic);
             }
-	
         });
 
         topicsList.innerHTML = '';
@@ -431,31 +449,31 @@ document.addEventListener('DOMContentLoaded', function() {
 
         topicsList.style.display = 'flex';
         container.innerHTML = '';
-	document.querySelector('.content-wrapper').classList.add('expanded'); 
+        document.querySelector('.content-wrapper').classList.add('expanded'); 
     }
 
     function filterByTopic(topic) {
-        container.innerHTML = '';
+        currentItems = menuItems.filter(item => item.getAttribute('data-classification') === topic);
 
-        menuItems.forEach(item => {
-            if (item.getAttribute('data-classification') === topic) {
-                container.appendChild(item);
-            }
+        currentItems.sort((a, b) => {
+            const dateA = new Date(a.getAttribute('data-date'));
+            const dateB = new Date(b.getAttribute('data-date'));
+            return dateB - dateA; // Latest first
         });
 
+        updateDisplay();
         topicsList.innerHTML = '';
-
         setTopicsButtonText('clickToSeeAllTopics'); // When a topic is clicked
     }
 
     // Button Event Listeners
     latestButton.addEventListener('click', () => {
-        sortByDate(true);
+        sortByDate(true);  // Newest first
         setActive(latestButton);
     });
 
     oldestButton.addEventListener('click', () => {
-        sortByDate(false);
+        sortByDate(false); // Oldest first
         setActive(oldestButton);
     });
 
@@ -474,6 +492,7 @@ document.addEventListener('DOMContentLoaded', function() {
     setActive(popularButton);
 });
 </script>
+
 
 </body>
 </html>

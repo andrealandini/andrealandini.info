@@ -1,0 +1,139 @@
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const menuItems = Array.from(document.querySelectorAll('.menu-item'));
+    const container = document.getElementById('menu-list');
+
+    const latestButton = document.getElementById('sort-latest');
+    const popularButton = document.getElementById('sort-popular');
+    const oldestButton = document.getElementById('sort-oldest');
+    const topicsButton = document.getElementById('sort-topics');
+
+    const topicsList = document.getElementById('topics-list');
+
+    function setActive(button) {
+        [latestButton, popularButton, oldestButton, topicsButton].forEach(btn => btn.classList.remove('active'));
+        button.classList.add('active');
+    }
+
+    function setTopicsButtonText(key) {
+        if (typeof translations !== 'undefined' && translations[currentLanguage]) {
+            topicsButton.textContent = translations[currentLanguage][key];
+        } else {
+            topicsButton.textContent = key; // fallback
+        }
+    }
+
+    function sortByDate(descending = true) {
+        menuItems.sort((a, b) => {
+            const dateA = a.getAttribute('data-date');
+            const dateB = b.getAttribute('data-date');
+
+            if (dateA === 'not-yet-published') return 1;
+            if (dateB === 'not-yet-published') return -1;
+
+            const parsedDateA = new Date(dateA);
+            const parsedDateB = new Date(dateB);
+            return descending ? parsedDateB - parsedDateA : parsedDateA - parsedDateB;
+        });
+        updateDisplay();
+    }
+
+    function sortByPopular() {
+        menuItems.sort((a, b) => {
+            const popA = a.getAttribute('data-popular') === 'true' ? 0 : 1;
+            const popB = b.getAttribute('data-popular') === 'true' ? 0 : 1;
+            return popA - popB;
+        });
+        updateDisplay();
+    }
+
+    function updateDisplay() {
+        container.innerHTML = '';
+        menuItems.forEach(item => container.appendChild(item));
+        topicsList.style.display = 'none';
+        setTopicsButtonText('topics'); // Reset to "Topics" after sort
+	document.querySelector('.content-wrapper').classList.remove('expanded');
+    }
+
+    function showTopics() {
+        setTopicsButtonText('topics'); // Reset to "Topics" when showing topics
+
+        const classifications = new Set();
+        menuItems.forEach(item => {
+            const topic = item.getAttribute('data-classification');
+            if (topic) {
+                classifications.add(topic);
+            }
+	
+        });
+
+        topicsList.innerHTML = '';
+
+        classifications.forEach(topic => {
+            const button = document.createElement('button');
+            const img = document.createElement('img');
+            img.src = 'assets/images/' + topic + '.png';
+            img.alt = topic;
+            img.style.width = '100%';
+            img.style.height = 'auto';
+            img.style.borderRadius = '15px';
+
+            button.appendChild(img);
+            button.className = 'topic-button';
+            button.addEventListener('click', () => filterByTopic(topic));
+            topicsList.appendChild(button);
+        });
+
+        topicsList.style.display = 'flex';
+        container.innerHTML = '';
+	document.querySelector('.content-wrapper').classList.add('expanded'); 
+    }
+	//qui
+    function filterByTopic(topic) {
+    container.innerHTML = '';
+
+    // Filter items by topic
+    const filteredItems = menuItems.filter(item => item.getAttribute('data-classification') === topic);
+
+    // Sort filtered items by latest date
+    filteredItems.sort((a, b) => {
+        const dateA = new Date(a.getAttribute('data-date'));
+        const dateB = new Date(b.getAttribute('data-date'));
+        return dateB - dateA; // Latest first
+    });
+
+    // Append sorted items
+    filteredItems.forEach(item => container.appendChild(item));
+
+    topicsList.innerHTML = '';
+
+    setTopicsButtonText('clickToSeeAllTopics'); // When a topic is clicked
+    }
+
+    // Button Event Listeners
+    latestButton.addEventListener('click', () => {
+        sortByDate(true);
+        setActive(latestButton);
+    });
+
+    oldestButton.addEventListener('click', () => {
+        sortByDate(false);
+        setActive(oldestButton);
+    });
+
+    popularButton.addEventListener('click', () => {
+        sortByPopular();
+        setActive(popularButton);
+    });
+
+    topicsButton.addEventListener('click', () => {
+        showTopics();
+        setActive(topicsButton);
+    });
+
+    // Default sorting when page loads
+    sortByPopular();
+    setActive(popularButton);
+});
+</script>
+
